@@ -1,0 +1,7 @@
+{
+  "name": "wizard_frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
