@@ -11,4 +11,5 @@ export class URLProviderService {
   createGame: string = `${this.baseURL}newGame`
   addPlayer: string = `${this.baseURL}addPlayer`
   getPlayers: string = `${this.baseURL}getPlayers`
+  getState: string = `${this.baseURL}getState`
 }

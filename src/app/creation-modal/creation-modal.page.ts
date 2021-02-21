@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Observable, timer } from 'rxjs';
 import { Player } from '../classes/player';
 import { StatusService } from '../services/status.service';
@@ -10,6 +11,7 @@ import { StatusService } from '../services/status.service';
 })
 export class CreationModalPage implements OnInit {
   @Input() gameID: string;
+  @Input() controller: ModalController;
   players: Array<Player>;
 
   constructor(private status: StatusService) {
@@ -23,4 +25,7 @@ export class CreationModalPage implements OnInit {
     
   }
 
+  close() {
+    this.controller.dismiss();
+  }
 }

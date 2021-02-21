@@ -5,22 +5,31 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'start',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'start',
-    loadChildren: () => import('./start/start.module').then( m => m.StartPageModule)
+    loadChildren: () =>
+      import('./start/start.module').then((m) => m.StartPageModule),
   },
   {
     path: 'creation-modal',
-    loadChildren: () => import('./creation-modal/creation-modal.module').then( m => m.CreationModalPageModule)
-  }
+    loadChildren: () =>
+      import('./creation-modal/creation-modal.module').then(
+        (m) => m.CreationModalPageModule
+      ),
+  },
+  {
+    path: 'game',
+    loadChildren: () =>
+      import('./game/game.module').then((m) => m.GamePageModule),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

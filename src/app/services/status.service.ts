@@ -14,4 +14,8 @@ export class StatusService {
   getAllPlayers(id: string): Observable<Array<Player>> {
     return this.http.get<Array<Player>>(`${this.provider.getPlayers}/${id}`);
   }
+
+  getStartedState(id: string) {
+    return this.http.get(`${this.provider.getState}/${id}`);
+  }
 }
