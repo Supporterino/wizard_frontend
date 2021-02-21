@@ -5,5 +5,16 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-item>
+    <ion-label>GameID: </ion-label>
+    <ion-text>{{ gameID }}</ion-text>
+  </ion-item>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Players</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let player of players">
+      <ion-label>{{player.id}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
