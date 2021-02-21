@@ -5,11 +5,10 @@ import { Player } from '../classes/player';
 import { URLProviderService } from './urlprovider.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatusService {
-
-  constructor(private http: HttpClient, private provider: URLProviderService) { }
+  constructor(private http: HttpClient, private provider: URLProviderService) {}
 
   getAllPlayers(id: string): Observable<Array<Player>> {
     return this.http.get<Array<Player>>(`${this.provider.getPlayers}/${id}`);

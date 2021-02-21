@@ -15,15 +15,15 @@ export class CreationModalPage implements OnInit {
   players: Array<Player>;
 
   constructor(private status: StatusService) {
-    const time = timer(0, 10000)
+    const time = timer(0, 10000);
     time.subscribe(() => {
-      this.status.getAllPlayers(this.gameID).subscribe(data => {this.players = data})
-    })
+      this.status.getAllPlayers(this.gameID).subscribe((data) => {
+        this.players = data;
+      });
+    });
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   close() {
     this.controller.dismiss();

@@ -1,6 +1,6 @@
-import { Player } from "../classes/player";
+import { Player } from '../classes/player';
 
 export interface CreationResponse {
-    msg: string;
-    gameID: string;
+  msg: string;
+  gameID: string;
 }
