@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreationResponse } from '../services/datatypes.model';
+import { CreationResponse, ResponseMessage } from '../services/datatypes.model';
 import { URLProviderService } from '../services/urlprovider.service';
 
 @Injectable({
@@ -15,6 +15,13 @@ export class StartService {
 
   addPlayer(id: string, name: string) {
     return this.http.post(this.provider.addPlayer, {
+      gameID: id,
+      playerID: name,
+    });
+  }
+
+  startGame(id: string, name: string) {
+    return this.http.post<ResponseMessage>(this.provider.start, {
       gameID: id,
       playerID: name,
     });

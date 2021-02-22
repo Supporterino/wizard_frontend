@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import {
+  LoadingController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
+import { Subject } from 'rxjs';
 import { timer } from 'rxjs';
 import { CreationModalPage } from '../creation-modal/creation-modal.page';
+import { GameState } from '../services/datatypes.model';
 import { LocalItemService } from '../services/local-item.service';
 import { StatusService } from '../services/status.service';
 import { StartService } from './start.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-start',
@@ -14,13 +22,16 @@ import { StartService } from './start.service';
 export class StartPage implements OnInit {
   name: string;
   id: string;
+  private ender = new Subject<void>();
 
   constructor(
     public modalController: ModalController,
     public loadingController: LoadingController,
     private startService: StartService,
     private statusService: StatusService,
-    private local: LocalItemService
+    private local: LocalItemService,
+    private router: Router,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {}
@@ -36,12 +47,17 @@ export class StartPage implements OnInit {
 
       await loading.present();
 
-      const time = timer(0, 10000);
-      time.subscribe(() => {
-        this.statusService.getStartedState(this.id).subscribe((data) => {
-          if (data) {
+      let time = timer(0, 10000);
+      time.pipe(takeUntil(this.ender)).subscribe(() => {
+        this.statusService.getState(this.id).subscribe((data) => {
+          console.log(data);
+          if (data == GameState.Predicting) {
             this.local.playerID = this.name;
             this.local.gameID = this.id;
+            loading.dismiss();
+            this.ender.next();
+            this.ender.complete();
+            this.router.navigate(['/game']);
           }
         });
       });
@@ -69,8 +85,20 @@ export class StartPage implements OnInit {
           console.log('Starting game.');
           this.local.playerID = this.name;
           this.local.gameID = this.id;
+          this.startService.startGame(this.id, this.name).subscribe((data) => {
+            this.presentToast(data.msg);
+            this.router.navigate(['game']);
+          });
         });
       });
     });
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+    });
+    toast.present();
   }
 }

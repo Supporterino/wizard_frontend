@@ -1,0 +1,13 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>HandModal</ion-title>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let card of cards">
+    <ion-item lines="none" button (click)="play(card)">
+      <ion-label><ion-icon name="square" style="color: {{card.color}};"></ion-icon> {{card.char}}</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

@@ -13,16 +13,23 @@ const routes: Routes = [
       import('./start/start.module').then((m) => m.StartPageModule),
   },
   {
-    path: 'creation-modal',
+    path: 'game',
+    loadChildren: () =>
+      import('./game/game.module').then((m) => m.GamePageModule),
+  },
+  {
+    path: 'creation',
     loadChildren: () =>
       import('./creation-modal/creation-modal.module').then(
         (m) => m.CreationModalPageModule
       ),
   },
   {
-    path: 'game',
+    path: 'hand',
     loadChildren: () =>
-      import('./game/game.module').then((m) => m.GamePageModule),
+      import('./hand-modal/hand-modal.module').then(
+        (m) => m.HandModalPageModule
+      ),
   },
 ];
 

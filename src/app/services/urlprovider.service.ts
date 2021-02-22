@@ -11,4 +11,8 @@ export class URLProviderService {
   addPlayer: string = `${this.baseURL}addPlayer`;
   getPlayers: string = `${this.baseURL}getPlayers`;
   getState: string = `${this.baseURL}getState`;
+  start: string = `${this.baseURL}startGame`;
+  rounds: string = `${this.baseURL}getRoundCounter`;
+  hand: string = `${this.baseURL}getHand`;
+  aplayer: string = `${this.baseURL}getActivePlayer`;
 }
