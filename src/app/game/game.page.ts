@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalItemService } from '../services/local-item.service';
 import { StatusService } from '../services/status.service';
-import { Subject } from 'rxjs';
-import { timer } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ModalController } from '@ionic/angular';
 import { HandModalPage } from '../hand-modal/hand-modal.page';
 
@@ -17,7 +14,6 @@ export class GamePage implements OnInit {
   playerID: string;
   playerCount: number;
   roundCounter: number;
-  ending = new Subject<void>();
   activePlayer: string;
 
   constructor(
@@ -33,14 +29,11 @@ export class GamePage implements OnInit {
   }
 
   ngOnInit() {
-    const refresher = timer(0, 10000);
-    refresher.pipe(takeUntil(this.ending)).subscribe(() => {
-      this.statusService.getRounds(this.gameID).subscribe((data) => {
-        this.roundCounter = data;
-      });
-      this.statusService.getActivePlayer(this.gameID).subscribe((data) => {
-        this.activePlayer = data;
-      });
+    this.statusService.getRounds(this.gameID).subscribe((data) => {
+      this.roundCounter = data;
+    });
+    this.statusService.getActivePlayer(this.gameID).subscribe((data) => {
+      this.activePlayer = data;
     });
   }
 

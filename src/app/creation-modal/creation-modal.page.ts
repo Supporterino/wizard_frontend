@@ -4,6 +4,8 @@ import { Observable, Subject, timer } from 'rxjs';
 import { Player } from '../services/datatypes.model';
 import { StatusService } from '../services/status.service';
 import { takeUntil } from 'rxjs/operators';
+import { URLProviderService } from '../services/urlprovider.service';
+import { io, Socket } from 'socket.io-client';
 
 @Component({
   selector: 'app-creation-modal',
@@ -14,25 +16,18 @@ export class CreationModalPage implements OnInit {
   @Input() gameID: string;
   @Input() controller: ModalController;
   players: Array<Player>;
-  private ender = new Subject<void>();
+  @Input() socket: Socket;
 
-  constructor(private status: StatusService) {
-    const time = timer(0, 10000);
-    time.pipe(takeUntil(this.ender)).subscribe(() => {
-      this.status.getAllPlayers(this.gameID).subscribe((data) => {
-        this.players = data;
-      });
+  constructor(private provider: URLProviderService) {}
+
+  ngOnInit() {
+    this.socket.on('user-added', (data: Array<Player>) => {
+      console.log('in modal');
+      this.players = data;
     });
   }
 
-  ngOnInit() {}
-
   close() {
     this.controller.dismiss();
-  }
-
-  ngOnDestroy() {
-    this.ender.next();
-    this.ender.complete();
   }
 }

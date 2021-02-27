@@ -12,18 +12,4 @@ export class StartService {
   createGame() {
     return this.http.get<CreationResponse>(this.provider.createGame);
   }
-
-  addPlayer(id: string, name: string) {
-    return this.http.post(this.provider.addPlayer, {
-      gameID: id,
-      playerID: name,
-    });
-  }
-
-  startGame(id: string, name: string) {
-    return this.http.post<ResponseMessage>(this.provider.start, {
-      gameID: id,
-      playerID: name,
-    });
-  }
 }

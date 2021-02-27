@@ -8,12 +8,13 @@ import {
 import { Subject } from 'rxjs';
 import { timer } from 'rxjs';
 import { CreationModalPage } from '../creation-modal/creation-modal.page';
-import { GameState } from '../services/datatypes.model';
+import { GameState, Player } from '../services/datatypes.model';
 import { LocalItemService } from '../services/local-item.service';
 import { StatusService } from '../services/status.service';
 import { StartService } from './start.service';
 import { takeUntil } from 'rxjs/operators';
-
+import { URLProviderService } from '../services/urlprovider.service';
+import { io } from 'socket.io-client';
 @Component({
   selector: 'app-start',
   templateUrl: './start.page.html',
@@ -23,6 +24,7 @@ export class StartPage implements OnInit {
   name: string;
   id: string;
   private ender = new Subject<void>();
+  players: Array<Player>;
 
   constructor(
     public modalController: ModalController,
@@ -31,65 +33,62 @@ export class StartPage implements OnInit {
     private statusService: StatusService,
     private local: LocalItemService,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private provider: URLProviderService
   ) {}
 
   ngOnInit() {}
 
-  joinGame() {
-    this.startService.addPlayer(this.id, this.name).subscribe(async () => {
-      console.log(`Addded ${this.name} to game (${this.id}).`);
+  async joinGame() {
+    const socket = io(`${this.provider.url}/${this.id}`);
 
-      const loading = await this.loadingController.create({
-        cssClass: 'my-custom-class',
-        message: 'Waiting for host...',
-      });
+    socket.emit('user-add', this.name);
 
-      await loading.present();
-
-      let time = timer(0, 10000);
-      time.pipe(takeUntil(this.ender)).subscribe(() => {
-        this.statusService.getState(this.id).subscribe((data) => {
-          console.log(data);
-          if (data == GameState.Predicting) {
-            this.local.playerID = this.name;
-            this.local.gameID = this.id;
-            loading.dismiss();
-            this.ender.next();
-            this.ender.complete();
-            this.router.navigate(['/game']);
-          }
-        });
-      });
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Waiting for host...',
     });
+
+    socket.on('game-started', () => {
+      this.local.playerID = this.name;
+      this.local.gameID = this.id;
+      this.router.navigate(['game']);
+      loading.dismiss();
+    });
+
+    await loading.present();
   }
 
-  createGame() {
+  async createGame() {
     console.log(`Creating game. Owner: ${this.name}`);
     this.startService.createGame().subscribe(async (data) => {
       this.id = data.gameID;
 
-      this.startService.addPlayer(this.id, this.name).subscribe(async () => {
-        console.log(`Poping up modal`);
-        const modal = await this.modalController.create({
-          component: CreationModalPage,
-          cssClass: 'my-custom-class',
-          swipeToClose: true,
-          componentProps: {
-            gameID: this.id,
-            controller: this.modalController,
-          },
-        });
-        await modal.present();
-        modal.onWillDismiss().then(() => {
-          console.log('Starting game.');
-          this.local.playerID = this.name;
-          this.local.gameID = this.id;
-          this.startService.startGame(this.id, this.name).subscribe((data) => {
-            this.presentToast(data.msg);
-            this.router.navigate(['game']);
-          });
-        });
+      const socket = io(`${this.provider.url}/${this.id}`);
+
+      socket.on('game-started', () => {
+        this.router.navigate(['game']);
+      });
+
+      socket.emit('user-add', this.name);
+
+      console.log(`Poping up modal`);
+      const modal = await this.modalController.create({
+        component: CreationModalPage,
+        cssClass: 'my-custom-class',
+        swipeToClose: true,
+        componentProps: {
+          gameID: this.id,
+          controller: this.modalController,
+          socket: socket,
+        },
+      });
+      await modal.present();
+      modal.onWillDismiss().then(() => {
+        console.log('Starting game.');
+        this.local.playerID = this.name;
+        this.local.gameID = this.id;
+        socket.emit('start-game', this.name);
       });
     });
   }
