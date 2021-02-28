@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Card, GameState, Player } from './datatypes.model';
+import { Card, GameState, Player, Scoreboard } from './datatypes.model';
 import { URLProviderService } from './urlprovider.service';
 
 @Injectable({
@@ -31,5 +31,9 @@ export class StatusService {
       gameID: id,
       playerID: name,
     });
+  }
+
+  getScoreboard(id: string) {
+    return this.http.get<Scoreboard>(`${this.provider.score}/${id}`);
   }
 }

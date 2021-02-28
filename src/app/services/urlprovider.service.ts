@@ -16,4 +16,5 @@ export class URLProviderService {
   rounds: string = `${this.baseURL}getRoundCounter`;
   hand: string = `${this.baseURL}getHand`;
   aplayer: string = `${this.baseURL}getActivePlayer`;
+  score: string = `${this.baseURL}getScoreboard`;
 }

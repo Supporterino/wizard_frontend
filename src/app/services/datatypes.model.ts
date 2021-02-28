@@ -14,6 +14,16 @@ export interface Player {
   hit: number;
 }
 
+export interface Scoreboard {
+  players: Array<Player>;
+  board: Array<Array<ScoreEntry>>;
+}
+
+export interface ScoreEntry {
+  target: number;
+  score: number;
+}
+
 export enum GameState {
   Joining,
   Predicting,

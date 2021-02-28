@@ -3,6 +3,8 @@ import { LocalItemService } from '../services/local-item.service';
 import { StatusService } from '../services/status.service';
 import { ModalController } from '@ionic/angular';
 import { HandModalPage } from '../hand-modal/hand-modal.page';
+import { Scoreboard } from '../services/datatypes.model';
+import { ScoreboardModalPage } from '../scoreboard-modal/scoreboard-modal.page';
 
 @Component({
   selector: 'app-game',
@@ -15,6 +17,7 @@ export class GamePage implements OnInit {
   playerCount: number;
   roundCounter: number;
   activePlayer: string;
+  scoreboard: Scoreboard;
 
   constructor(
     private local: LocalItemService,
@@ -34,6 +37,9 @@ export class GamePage implements OnInit {
     });
     this.statusService.getActivePlayer(this.gameID).subscribe((data) => {
       this.activePlayer = data;
+    });
+    this.statusService.getScoreboard(this.gameID).subscribe((data) => {
+      this.scoreboard = data;
     });
   }
 
@@ -55,5 +61,20 @@ export class GamePage implements OnInit {
 
         const { data } = await modal.onWillDismiss();
       });
+  }
+
+  async showScoreboard() {
+    const modal = await this.modalController.create({
+      component: ScoreboardModalPage,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      componentProps: {
+        scoreboard: this.scoreboard,
+        controller: this.modalController,
+      },
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
   }
 }

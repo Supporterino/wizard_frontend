@@ -31,6 +31,10 @@ const routes: Routes = [
         (m) => m.HandModalPageModule
       ),
   },
+  {
+    path: 'scoreboard-modal',
+    loadChildren: () => import('./scoreboard-modal/scoreboard-modal.module').then( m => m.ScoreboardModalPageModule)
+  },
 ];
 
 @NgModule({
