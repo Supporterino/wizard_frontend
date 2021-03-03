@@ -17,17 +17,11 @@ export class ScoreboardModalPage implements OnInit {
     console.log(this.scoreboard);
   }
 
-  counter(i: number) {
-    return new Array(i);
-  }
-
   getEntry(val: ScoreEntry) {
-    let pre: string;
-    if ('target' in val) {
-      pre = `${val.target}`; //return `${val.target} | ${val.score}`;
+    if (val.hasOwnProperty('target')) {
+      return `${val.target} | ${val.score}`;
     } else {
-      pre = '-'; //return `- | ${val.score}`;
+      return `- | ${val.score}`;
     }
-    return `${pre} | ${val.score}`;
   }
 }

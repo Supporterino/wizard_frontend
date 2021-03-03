@@ -9,8 +9,8 @@
   <ion-row>
     <ion-col *ngFor="let player of scoreboard.players">{{player.id}}</ion-col>
   </ion-row>
-  <ion-row *ngFor="let round of counter(scoreboard.board[0].length - 1)">
-    <ion-col *ngFor="let player of scoreboard.players; let i = index"><ion-text [innerHtml]="getEntry(scoreboard.board[i][round])"></ion-text></ion-col>
+  <ion-row *ngFor="let round of scoreboard.board[0]; let j = index">
+    <ion-col *ngFor="let player of scoreboard.players; let i = index"><ion-text [innerText]="getEntry(scoreboard.board[i][j])"></ion-text></ion-col>
   </ion-row>
 </ion-grid>
 </ion-content>

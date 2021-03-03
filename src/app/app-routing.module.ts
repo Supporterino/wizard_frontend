@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'scoreboard-modal',
     loadChildren: () => import('./scoreboard-modal/scoreboard-modal.module').then( m => m.ScoreboardModalPageModule)
   },
+  {
+    path: 'prediction-modal',
+    loadChildren: () => import('./prediction-modal/prediction-modal.module').then( m => m.PredictionModalPageModule)
+  },
 ];
 
 @NgModule({

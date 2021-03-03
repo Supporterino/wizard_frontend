@@ -30,7 +30,6 @@ export class StartPage implements OnInit {
     public modalController: ModalController,
     public loadingController: LoadingController,
     private startService: StartService,
-    private statusService: StatusService,
     private local: LocalItemService,
     private router: Router,
     private toastController: ToastController,
