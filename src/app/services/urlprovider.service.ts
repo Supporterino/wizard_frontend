@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class URLProviderService {
   constructor() {}
 
-  url: string = `http://10.1.0.52:1337`;
+  url: string = `https://wizard-online.com`;
   baseURL: string = `${this.url}/api/`;
   createGame: string = `${this.baseURL}newGame`;
   addPlayer: string = `${this.baseURL}addPlayer`;
@@ -17,4 +17,5 @@ export class URLProviderService {
   hand: string = `${this.baseURL}getHand`;
   aplayer: string = `${this.baseURL}getActivePlayer`;
   score: string = `${this.baseURL}getScoreboard`;
+  dominant: string = `${this.baseURL}getDomColor`;
 }

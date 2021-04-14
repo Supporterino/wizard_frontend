@@ -3,7 +3,7 @@ import { LocalItemService } from '../services/local-item.service';
 import { StatusService } from '../services/status.service';
 import { ModalController } from '@ionic/angular';
 import { HandModalPage } from '../hand-modal/hand-modal.page';
-import { GameState, Scoreboard } from '../services/datatypes.model';
+import { Card, GameState, Scoreboard } from '../services/datatypes.model';
 import { ScoreboardModalPage } from '../scoreboard-modal/scoreboard-modal.page';
 import { PredictionModalPage } from '../prediction-modal/prediction-modal.page';
 import { URLProviderService } from '../services/urlprovider.service';
@@ -24,6 +24,7 @@ export class GamePage implements OnInit {
   gameState: GameState;
   StateEnum = GameState;
   socket: Socket;
+  dominantColor: Card;
 
   constructor(
     private local: LocalItemService,
@@ -51,6 +52,9 @@ export class GamePage implements OnInit {
     this.statusService.getState(this.gameID).subscribe((data) => {
       this.gameState = data;
     });
+    this.statusService.getDominantColor(this.gameID).subscribe((data) => {
+      this.dominantColor = data;
+    });
 
     this.socket = io(`${this.provider.url}/${this.gameID}`);
 
@@ -68,6 +72,10 @@ export class GamePage implements OnInit {
 
     this.socket.on('rc-update', (data: number) => {
       this.roundCounter = data;
+    });
+
+    this.socket.on('dom-update', (data: Card) => {
+      this.dominantColor = data;
     });
   }
 
@@ -100,6 +108,25 @@ export class GamePage implements OnInit {
           componentProps: {
             cards: cards,
             controller: this.modalController,
+            playing: true,
+          },
+        });
+        await modal.present();
+      });
+  }
+  play() {
+    this.statusService
+      .getHand(this.gameID, this.playerID)
+      .subscribe(async (cards) => {
+        console.log(cards);
+        const modal = await this.modalController.create({
+          component: HandModalPage,
+          cssClass: 'my-custom-class',
+          swipeToClose: true,
+          componentProps: {
+            cards: cards,
+            controller: this.modalController,
+            playing: true,
           },
         });
         await modal.present();

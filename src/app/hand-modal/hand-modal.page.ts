@@ -10,6 +10,7 @@ import { Card } from '../services/datatypes.model';
 export class HandModalPage implements OnInit {
   @Input() cards: Array<Card>;
   @Input() controller: ModalController;
+  @Input() playing: boolean;
 
   constructor() {}
 

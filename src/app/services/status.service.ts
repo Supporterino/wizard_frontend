@@ -33,6 +33,10 @@ export class StatusService {
     });
   }
 
+  getDominantColor(id: string) {
+    return this.http.get<Card>(`${this.provider.dominant}/${id}`);
+  }
+
   getScoreboard(id: string) {
     return this.http.get<Scoreboard>(`${this.provider.score}/${id}`);
   }

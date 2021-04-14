@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { GamePageRoutingModule } from './game-routing.module';
 
 import { GamePage } from './game.page';
+import { CardItemComponent } from './card-item/card-item.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, GamePageRoutingModule],
-  declarations: [GamePage],
+  declarations: [GamePage, CardItemComponent],
 })
 export class GamePageModule {}

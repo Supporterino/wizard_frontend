@@ -12,16 +12,16 @@
       <ion-col><ion-button expand="block"><ion-icon name="people"></ion-icon> {{playerCount}}</ion-button></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col></ion-col>
+      <ion-col><app-card-item *ngIf="dominantColor" [card]="dominantColor"></app-card-item></ion-col>
       <ion-col></ion-col>
       <ion-col></ion-col>
       <ion-col></ion-col>
     </ion-row>
     <ion-row>
       <ion-col><ion-button expand="block" (click)="showScoreboard()"><ion-icon name="create-outline"></ion-icon></ion-button></ion-col>
-      <ion-col size="9" *ngIf="gameState === StateEnum.Playing"><ion-button expand="block" (click)="showHand()" [disabled]="activePlayer != playerID">Play</ion-button></ion-col>
-      <ion-col size="9" *ngIf="gameState === StateEnum.Predicting"><ion-button expand="block" (click)="predict()" [disabled]="activePlayer != playerID">Predict</ion-button></ion-col>
-
+      <ion-col size="6" *ngIf="gameState === StateEnum.Playing"><ion-button expand="block" (click)="play()" [disabled]="activePlayer != playerID">Play</ion-button></ion-col>
+      <ion-col size="6" *ngIf="gameState === StateEnum.Predicting"><ion-button expand="block" (click)="predict()" [disabled]="activePlayer != playerID">Predict</ion-button></ion-col>
+      <ion-col><ion-button expand="block" (click)="showHand()"><ion-icon name="id-card-outline"></ion-icon></ion-button></ion-col>
     </ion-row>
   </ion-grid>
 
