@@ -25,6 +25,7 @@ export class GamePage implements OnInit {
   StateEnum = GameState;
   socket: Socket;
   dominantColor: Card;
+  pile: Array<Card>;
 
   constructor(
     private local: LocalItemService,
@@ -77,6 +78,10 @@ export class GamePage implements OnInit {
     this.socket.on('dom-update', (data: Card) => {
       this.dominantColor = data;
     });
+
+    this.socket.on('pile-update', (data: Array<Card>) => {
+      this.pile = data;
+    });
   }
 
   async predict() {
@@ -88,6 +93,7 @@ export class GamePage implements OnInit {
       componentProps: {
         controller: this.modalController,
       },
+      backdropDismiss: false,
     });
     await modal.present();
 
@@ -128,6 +134,7 @@ export class GamePage implements OnInit {
             controller: this.modalController,
             playing: true,
           },
+          backdropDismiss: false,
         });
         await modal.present();
 
