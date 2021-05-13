@@ -13,10 +13,9 @@
     </ion-row>
     <ion-row>
       <ion-col><app-card-item *ngIf="dominantColor" [card]="dominantColor"></app-card-item></ion-col>
-      <ion-col></ion-col>
-      <ion-col>
-        <ion-row  *ngFor="let card of pile">
-          <app-card-item [card]="card"></app-card-item>
+      <ion-col size="6">
+        <ion-row class="centering" *ngFor="let card of pile">
+          <app-card-item class="piling" [card]="card"></app-card-item>
         </ion-row>
       </ion-col>
       <ion-col></ion-col>

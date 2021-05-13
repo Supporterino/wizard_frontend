@@ -5,3 +5,17 @@
 ion-item {
   text-align: center;
 }
+
+.centering {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+@for $i from 1 through 6 {
+  .piling {
+    &:nth-child(#{$i}){
+      position: absolute;
+      transform: rotate(random(30) + deg);
+    }
+  }
