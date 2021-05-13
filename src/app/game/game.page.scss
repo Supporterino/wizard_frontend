@@ -14,8 +14,25 @@ ion-item {
 
 @for $i from 1 through 6 {
   .piling {
-    &:nth-child(#{$i}){
+    &:nth-child(#{$i}) {
       position: absolute;
       transform: rotate(random(30) + deg);
     }
   }
+}
+
+.top {
+  height: 25%;
+}
+
+.left {
+  width: 25%;
+}
+
+.bottom {
+  height: 75%;
+}
+
+.right {
+  width: 75%;
+}

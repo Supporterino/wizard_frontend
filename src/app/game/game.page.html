@@ -7,25 +7,62 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col><ion-button expand="block"><ion-icon name="sync-outline"></ion-icon> {{roundCounter}}</ion-button></ion-col>
-      <ion-col size="6"><ion-item lines="none">Playing: {{activePlayer}}</ion-item></ion-col>
-      <ion-col><ion-button expand="block"><ion-icon name="people"></ion-icon> {{playerCount}}</ion-button></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><app-card-item *ngIf="dominantColor" [card]="dominantColor"></app-card-item></ion-col>
-      <ion-col size="6">
-        <ion-row class="centering" *ngFor="let card of pile">
-          <app-card-item class="piling" [card]="card"></app-card-item>
-        </ion-row>
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><ion-button expand="block" (click)="showScoreboard()"><ion-icon name="create-outline"></ion-icon></ion-button></ion-col>
-      <ion-col size="6" *ngIf="gameState === StateEnum.Playing"><ion-button expand="block" (click)="play()" [disabled]="activePlayer != playerID">Play</ion-button></ion-col>
-      <ion-col size="6" *ngIf="gameState === StateEnum.Predicting"><ion-button expand="block" (click)="predict()" [disabled]="activePlayer != playerID">Predict</ion-button></ion-col>
-      <ion-col><ion-button expand="block" (click)="showHand()"><ion-icon name="id-card-outline"></ion-icon></ion-button></ion-col>
+      <ion-col
+        ><ion-button expand="block"
+          ><ion-icon name="sync-outline"></ion-icon>
+          {{roundCounter}}</ion-button
+        ></ion-col
+      >
+      <ion-col size="6"
+        ><ion-item lines="none">Playing: {{activePlayer}}</ion-item></ion-col
+      >
+      <ion-col
+        ><ion-button expand="block"
+          ><ion-icon name="people"></ion-icon> {{playerCount}}</ion-button
+        ></ion-col
+      >
     </ion-row>
   </ion-grid>
 
+  <div class="top left ion-float-left">
+    <app-card-item *ngIf="dominantColor" [card]="dominantColor"></app-card-item>
+  </div>
+  <div class="top right ion-float-right"></div>
+  <div class="bottom left ion-float-left"></div>
+  <div class="bottom right ion-float-right">
+    <div class="centering" *ngFor="let card of pile">
+      <app-card-item class="piling" [card]="card"></app-card-item>
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        ><ion-button expand="block" (click)="showScoreboard()"
+          ><ion-icon name="create-outline"></ion-icon></ion-button
+      ></ion-col>
+      <ion-col size="6" *ngIf="gameState === StateEnum.Playing"
+        ><ion-button
+          expand="block"
+          (click)="play()"
+          [disabled]="activePlayer != playerID"
+          >Play</ion-button
+        ></ion-col
+      >
+      <ion-col size="6" *ngIf="gameState === StateEnum.Predicting"
+        ><ion-button
+          expand="block"
+          (click)="predict()"
+          [disabled]="activePlayer != playerID"
+          >Predict</ion-button
+        ></ion-col
+      >
+      <ion-col
+        ><ion-button expand="block" (click)="showHand()"
+          ><ion-icon name="id-card-outline"></ion-icon></ion-button
+      ></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
