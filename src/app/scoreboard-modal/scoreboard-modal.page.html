@@ -1,16 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Scoreboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button onclick="dismissModal()">X</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-grid>
-  <ion-row>
-    <ion-col *ngFor="let player of scoreboard.players">{{player.id}}</ion-col>
-  </ion-row>
-  <ion-row *ngFor="let round of scoreboard.board[0]; let j = index">
-    <ion-col *ngFor="let player of scoreboard.players; let i = index"><ion-text [innerText]="getEntry(scoreboard.board[i][j])"></ion-text></ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let player of scoreboard.players">{{player.id}}</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let round of scoreboard.board[0]; let j = index">
+      <ion-col *ngFor="let player of scoreboard.players; let i = index"
+        ><ion-text [innerText]="getEntry(scoreboard.board[i][j])"></ion-text
+      ></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

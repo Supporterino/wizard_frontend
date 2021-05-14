@@ -19,4 +19,8 @@ export class HandModalPage implements OnInit {
   play(card: Card) {
     this.controller.dismiss(card);
   }
+
+  dismissModal() {
+    if (!this.playing) this.controller.dismiss();
+  }
 }

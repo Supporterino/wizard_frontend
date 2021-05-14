@@ -24,4 +24,8 @@ export class ScoreboardModalPage implements OnInit {
       return `- | ${val.score}`;
     }
   }
+
+  dismissModal() {
+    this.controller.dismiss();
+  }
 }

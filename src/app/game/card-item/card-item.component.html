@@ -1,14 +1,11 @@
-    <div class="playing-card">
-      <div class="corner-detail">
-        {{card.char}}
-        <div class="spade-small" style="background-color: {{card.color}};">
-        </div>
-      </div>
-      <div class="spade-main" style="background-color: {{card.color}};">
-      </div>
-      <div class="corner-detail bottom">
-        {{card.char}}
-        <div class="spade-small" style="background-color: {{card.color}};">
-        </div>
-      </div>
-    </div>
+<div class="playing-card">
+  <div class="corner-detail">
+    {{ card.char }}
+    <div class="square-small" style="background-color: {{ card.color }};"></div>
+  </div>
+  <div class="square-main" style="background-color: {{ card.color }};"></div>
+  <div class="corner-detail bottom">
+    {{ card.char }}
+    <div class="square-small" style="background-color: {{ card.color }};"></div>
+  </div>
+</div>

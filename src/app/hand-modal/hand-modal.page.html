@@ -1,16 +1,25 @@
 <ion-header>
-  <!-- <ion-toolbar>
-    <ion-title>HandModal</ion-title>
-  </ion-toolbar> -->
+  <ion-toolbar>
+    <ion-title>My Hand</ion-title>
+    <ion-buttons *ngIf="!playing" slot="end">
+      <ion-button onclick="dismissModal()">X</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngFor="let card of cards">
     <ion-item *ngIf="playing" lines="none" button (click)="play(card)">
-      <ion-label><ion-icon name="square" style="color: {{card.color}};"></ion-icon> {{card.char}}</ion-label>
+      <ion-label
+        ><ion-icon name="square" style="color: {{card.color}};"></ion-icon>
+        {{card.char}}</ion-label
+      >
     </ion-item>
     <ion-item *ngIf="!playing" lines="none">
-      <ion-label><ion-icon name="square" style="color: {{card.color}};"></ion-icon> {{card.char}}</ion-label>
+      <ion-label
+        ><ion-icon name="square" style="color: {{card.color}};"></ion-icon>
+        {{card.char}}</ion-label
+      >
     </ion-item>
   </ion-card>
 </ion-content>
