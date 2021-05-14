@@ -114,7 +114,7 @@ export class GamePage implements OnInit {
           componentProps: {
             cards: cards,
             controller: this.modalController,
-            playing: true,
+            playing: false,
           },
         });
         await modal.present();
