@@ -12,15 +12,6 @@ ion-item {
   align-content: center;
 }
 
-@for $i from 1 through 6 {
-  .piling {
-    &:nth-child(#{$i}) {
-      position: absolute;
-      transform: rotate(random(30) + deg);
-    }
-  }
-}
-
 .top {
   height: 25%;
 }

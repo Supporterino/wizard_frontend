@@ -1,7 +1,7 @@
 .card {
-  width: 12vw;
-  height: 16vw;
-  border-radius: 2vw;
+  width: 12vmin;
+  height: 16vmin;
+  border-radius: 2vmin;
   text-align: center;
   vertical-align: middle;
 }
@@ -12,41 +12,41 @@ $content: var(--content);
 .playing-card {
   position: absolute;
   background: #3880ff;
-  width: 29vw;
-  height: 39vw;
+  width: 29vmin;
+  height: 39vmin;
   border: 1px solid black;
   border-radius: 5%;
 }
 
 .square-main {
   position: absolute;
-  top: 14vw;
-  left: 9.5vw;
-  width: 9vw;
-  height: 9vw;
+  top: 14vmin;
+  left: 9.5vmin;
+  width: 9vmin;
+  height: 9vmin;
   transform: rotate(45deg);
 }
 
 .corner-detail {
   position: absolute;
-  left: 2vw;
-  top: 2vw;
+  left: 2vmin;
+  top: 2vmin;
   font-family: sans-serif;
-  font-size: 3vw;
+  font-size: 3vmin;
   color: black;
 }
 
 .bottom {
-  bottom: 2vw;
-  right: 2vw;
+  bottom: 2vmin;
+  right: 2vmin;
   transform: rotate(180deg);
 }
 
 .square-small {
   position: absolute;
-  top: 4.2vw;
-  left: 0.5vw;
-  width: 2vw;
-  height: 2vw;
+  top: 4.2vmin;
+  left: 0.5vmin;
+  width: 2vmin;
+  height: 2vmin;
   transform: rotate(45deg);
 }

@@ -14,7 +14,9 @@
         ></ion-col
       >
       <ion-col size="6"
-        ><ion-item lines="none">Playing: {{activePlayer}}</ion-item></ion-col
+        ><ion-item lines="none" class="ion-text-center"
+          >Playing: {{activePlayer}}</ion-item
+        ></ion-col
       >
       <ion-col
         ><ion-button expand="block"
@@ -30,8 +32,12 @@
   <div class="top right ion-float-right"></div>
   <div class="bottom left ion-float-left"></div>
   <div class="bottom right ion-float-right">
-    <div class="centering" *ngFor="let card of pile">
-      <app-card-item class="piling" [card]="card"></app-card-item>
+    <div class="centering">
+      <app-card-item
+        style="transform: rotate({{i * 5}}deg);"
+        *ngFor="let card of pile; let i = index"
+        [card]="card"
+      ></app-card-item>
     </div>
   </div>
 </ion-content>
