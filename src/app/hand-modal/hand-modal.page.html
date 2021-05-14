@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>My Hand</ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="!playing" onclick="dismissModal()">X</ion-button>
+      <ion-button *ngIf="!playing" (click)="dismissModal()">X</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
