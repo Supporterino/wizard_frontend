@@ -14,7 +14,9 @@ export class HandModalPage implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(`Cards in Hand to play: ${this.cards}`)
+  }
 
   play(card: Card) {
     this.controller.dismiss(card);

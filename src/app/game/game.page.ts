@@ -120,17 +120,27 @@ export class GamePage implements OnInit {
         await modal.present();
       });
   }
+
+  getPlayableCards(cards: Card[]): Card[] {
+    let output: Card[] = [];
+    if (this.pile && this.pile.length > 0) {output = output.concat(cards.filter((e, i, a) => {return e.color === this.pile[0].color}));}
+    if (output.length == 0) {output = output.concat(cards.filter((e, i, a) => {return e.color !== 'white'}));}
+    output = output.concat(cards.filter((e, i, a) => {return e.color === 'white'}));
+
+    return output;
+  }
+
   play() {
     this.statusService
       .getHand(this.gameID, this.playerID)
       .subscribe(async (cards) => {
-        console.log(cards);
+        const playable = this.getPlayableCards(cards);
         const modal = await this.modalController.create({
           component: HandModalPage,
           cssClass: 'my-custom-class',
           swipeToClose: true,
           componentProps: {
-            cards: cards,
+            cards: playable,
             controller: this.modalController,
             playing: true,
           },
